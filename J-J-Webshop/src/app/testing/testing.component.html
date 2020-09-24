@@ -1,0 +1,28 @@
+<p>Testing works!</p>
+<ul>
+    <!--
+        *ngfor laver en list af vores objekter 
+        [class.selected] gør at hvis at vores li er selected og giver den så den tilpassede style
+        Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
+    -->
+    <li *ngFor="let genre of genres">
+        <span>
+            {{genre.id}},
+            
+        </span>    
+        {{genre.genreName}}     
+    </li>
+</ul>
+
+<div>
+    <label>Hero name:
+    <input #Id />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="getGenre(Id.value)); ">
+      Find
+    </button>
+    <div *ngIf="genre">
+        <h2>{{genre.id}}{{genre.name}}</h2>
+    </div>
+</div>
