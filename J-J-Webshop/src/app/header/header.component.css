@@ -1,3 +1,66 @@
-header {
-  background-color: #EA7414;
+
+.grid-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 60px;
+}
+
+.grid-item{
+  display: flex;
+  background-color: var(--base);
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.grid-item p{
+  color: var(--highlightO);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: auto;
+  font-weight: 700;
+}
+
+.grid-item:hover{
+  background-color: var(--highlightB);
+  cursor: pointer;
+}
+
+#LogoText{
+  color: var(--highlightO);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  padding: 10px 0px 10px 5px;
+  margin: auto;
+  margin-right: 5px;
+  height: 100%;
+}
+
+#NavContainer{
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+
+}
+
+#Searchbar-container{
+  background-color: var(--base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active p {
+  border-bottom: var(--highlight) 5px solid;
+}
+
+#Searchbar {
+  width: 75%;
+  box-sizing: border-box;
 }

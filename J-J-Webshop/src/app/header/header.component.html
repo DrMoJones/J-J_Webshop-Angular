@@ -1,5 +1,10 @@
-<header>
-  <h1>A heading here</h1>
-  <p>Posted by John Doe</p>
-  <p>Some additional information here</p>
-</header>
+<div class="grid-container" ng-mouseover="Searchbar-container = false" ng-init="Searchbar-container= false" >
+  <div class="grid-item">
+    <p id="LogoText">J&J Webshop</p>
+  </div>
+
+  <div class="grid-item" id="Searchbar-container">
+    <input id="Searchbar" type="text">
+    <button type="submit" [disabled]="!titleForm.valid" (click)="Search(this.titleForm.value)" >Search</button>
+  </div>
+</div>
