@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TilesComponent } from './tiles/tiles.component';
 import { UserComponent } from './user/user.component';
+import { CartComponent } from "./cart/cart.component";
 
 const routes: Routes = [
+  {path: 'cart', component: CartComponent},
   {path: 'shop', component: TilesComponent},
   {path: 'user', component: UserComponent}
 ];
