@@ -37,9 +37,12 @@ export class GenreService {
 
   UpdateGenre(id: number, genre: Genre){
     const url = `${this.GenreUrl}/${id}`
-    var test: number = +id;
-    this.test = JSON.stringify(genre);
-    console.log(this.test);
+   /* var test: number = +id;
+    this.test = JSON.stringify({
+      "id": genre.id,
+      "genreName": genre.genreName
+    });
+    //console.log(this.test);*/
     return this.http.put(url, genre, this.httpOptions)
       .pipe(tap(_ => console.log(`Updated Genre with id ${id}`)))
   }

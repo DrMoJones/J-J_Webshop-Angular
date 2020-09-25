@@ -51,6 +51,7 @@ export class TestingComponent implements OnInit {
 
   Update(id: number, genreName: string): void {
     genreName = genreName.trim();
+    //var test: number = +id;
     if (!genreName) { return; }
     this.GenreService.UpdateGenre(id, {id, genreName} as Genre)
       .subscribe()
