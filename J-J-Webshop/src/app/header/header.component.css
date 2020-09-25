@@ -23,11 +23,6 @@
   font-weight: 700;
 }
 
-.grid-item:hover{
-  background-color: var(--highlightB);
-  cursor: pointer;
-}
-
 #LogoText{
   color: var(--highlightO);
   text-transform: uppercase;
@@ -41,23 +36,11 @@
   height: 100%;
 }
 
-#NavContainer{
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-
-}
-
 #Searchbar-container{
   background-color: var(--base);
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.active p {
-  border-bottom: var(--highlight) 5px solid;
 }
 
 #Searchbar {
