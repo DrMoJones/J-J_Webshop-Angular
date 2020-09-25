@@ -54,9 +54,7 @@ export class TestingComponent implements OnInit {
     if (!genreName) { return; }
     this.GenreService.UpdateGenre(id, {id, genreName} as Genre)
       .subscribe()
-        //genre => {this.genres.push(genre)})
-        
-      
+        //genre => {this.genres.push(genre)})   
   }
 
 

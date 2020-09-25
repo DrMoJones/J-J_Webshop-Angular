@@ -11,6 +11,7 @@ import { Genre } from '../Models/Genre';
 })
 export class GenreService {
   private GenreUrl = 'api/Genres';
+  private test: string;
 
   constructor(private http: HttpClient) { }
 
@@ -36,7 +37,10 @@ export class GenreService {
 
   UpdateGenre(id: number, genre: Genre){
     const url = `${this.GenreUrl}/${id}`
-    return this.http.put(url, JSON.stringify(genre), this.httpOptions)
+    var test: number = +id;
+    this.test = JSON.stringify(genre);
+    console.log(this.test);
+    return this.http.put(url, genre, this.httpOptions)
       .pipe(tap(_ => console.log(`Updated Genre with id ${id}`)))
   }
 
