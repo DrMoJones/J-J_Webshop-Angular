@@ -1,11 +1,11 @@
 import { Genre } from './Genre';
 
 export interface Product {
-    Id: number;
-    Name: string;
-    Price: number;
-    Description: string;
-    GenreId: number;
-    Stock: number;
-    Genre: Genre;
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+    genreId: number;
+    stock: number;
+    genre: Genre;
 }

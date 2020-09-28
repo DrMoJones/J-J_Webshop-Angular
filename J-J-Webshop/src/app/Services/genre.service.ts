@@ -37,7 +37,7 @@ export class GenreService {
 
   UpdateGenre(id: number, genre: Genre){
     const url = `${this.GenreUrl}/${id}`
-   /* var test: number = +id;
+    /* var test: number = +id;
     this.test = JSON.stringify({
       "id": genre.id,
       "genreName": genre.genreName

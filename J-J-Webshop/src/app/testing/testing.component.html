@@ -1,4 +1,4 @@
-<p>Testing works!</p>
+<p>Genres</p>
 <ul>
     <!--
         *ngfor laver en list af vores objekter 
@@ -6,15 +6,13 @@
         Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
     -->
     <li *ngFor="let genre of genres">
-        <span>
-            {{genre.id}},
-            
-        </span>    
+        {{genre.id}},    
         {{genre.genreName}}   
-        <button (click)="Delete(genre); ">Delete</button>  
+        <button (click)="Delete(genre);">Delete</button>  
 
         <div>
-            <label>Update this genre 
+        <button (click)="genreEditChange();">edit</button>
+                <label>Update this genre 
                 <input #nameG />
                 </label>    
                 <!-- (click) passes input value to add() and then clears the input -->
@@ -28,11 +26,12 @@
     </li>
 </ul>
 
+<!--
 <div>
     <label>Find Genre by id:
     <input #Id />
     </label>
-    <!-- (click) passes input value to GetGenre() and then clears the input -->
+     (click) passes input value to GetGenre() and then clears the input 
     <button (click)="GetGenre(Id.value); ">
     Find
     </button>
@@ -40,14 +39,15 @@
         <h2>{{genre.id}}, {{genre.genreName}}</h2>
     </div>
 </div>
-
+-->
 
 <div>
     <label>Post genre with name:
     <input #name />
+ 
     </label>
     <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="Add(name.value); ">Post</button>
+    <button (click)="Add(); ">Post</button>
    
 </div>
 
@@ -62,3 +62,38 @@
    
 </div>
 -->
+
+
+<ul>
+    <!--
+        *ngfor laver en list af vores objekter 
+        [class.selected] gør at hvis at vores li er selected og giver den så den tilpassede style
+        Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
+    -->
+    <li *ngFor="let product of products">
+        <span>
+        {{product.name}}
+        </span>        
+        {{product.price}}
+        {{product.description}}
+        {{product.genreId}}
+        remaining stock = {{product.stock}}
+        <!--TODO Genre skal inkluderes-->
+        <button (click)="DeleteProduct(product); ">Delete</button>  
+        <br>
+        <!--TODO
+            Den burde have en Confirm, så man ikke kommer til at slette en for hurtigt.
+        -->
+    </li>
+</ul>
+
+
+<div>
+    <label>Post product with name:
+    <input #name />
+    <input #GenreId/>
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="AddProduct(name.value); ">Post</button>
+   
+</div>
