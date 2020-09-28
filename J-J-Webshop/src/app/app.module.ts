@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,21 +11,26 @@ import { NavBarComponent } from './NavBar/NavBar.component';
 import { UserComponent } from './user/user.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductDescriptionComponent } from './productDescription/productDescription.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TestingComponent } from './testing/testing.component';
 
 @NgModule({
-  declarations: [			
+  declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-      TilesComponent,
-      NavBarComponent,
-      UserComponent,
-      CartComponent,
-      ProductDescriptionComponent
-   ],
+    TilesComponent,
+    NavBarComponent,
+    UserComponent,
+    CartComponent,
+    TestingComponent,
+    ProductDescriptionComponent
+  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
