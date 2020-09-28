@@ -9,16 +9,18 @@ import { TilesComponent } from './tiles/tiles.component';
 import { NavBarComponent } from './NavBar/NavBar.component';
 import { UserComponent } from './user/user.component';
 import { CartComponent } from './cart/cart.component';
+import { ProductDescriptionComponent } from './productDescription/productDescription.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     HeaderComponent,
     FooterComponent,
       TilesComponent,
       NavBarComponent,
       UserComponent,
-      CartComponent
+      CartComponent,
+      ProductDescriptionComponent
    ],
   imports: [
     BrowserModule,
