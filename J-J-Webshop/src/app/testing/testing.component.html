@@ -6,23 +6,17 @@
         Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
     -->
     <li *ngFor="let genre of genres">
-        {{genre.id}},    
-        {{genre.genreName}}   
-        <button (click)="Delete(genre);">Delete</button>  
+        {{genre.id}},
+        {{genre.genreName}}
+        <button (click)="Delete(genre);">Delete</button>
 
-        <div>
-        <button (click)="genreEditChange();">edit</button>
-                <label>Update this genre 
-                <input #nameG />
-                </label>    
-                <!-- (click) passes input value to add() and then clears the input -->
-                <button (click)="Update(genre.id, nameG.value); ">Post</button>
-               
+
+        <button (click)="genreEditChange();">Edit</button>
+        <div *ngIf="genreEdit">
+            <h1>Hero Form</h1>
+            
         </div>
         <br>
-        <!--
-            Den burde have en Confirm, så man ikke kommer til at slette en for hurtigt.
-        -->
     </li>
 </ul>
 
@@ -43,12 +37,11 @@
 
 <div>
     <label>Post genre with name:
-    <input #name />
- 
+        <input #name />
+
     </label>
     <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="Add(); ">Post</button>
-   
+    <button (click)="Add(genre.genreName); ">Post</button>
 </div>
 
 
@@ -72,14 +65,14 @@
     -->
     <li *ngFor="let product of products">
         <span>
-        {{product.name}}
-        </span>        
+            {{product.name}}
+        </span>
         {{product.price}}
         {{product.description}}
         {{product.genreId}}
         remaining stock = {{product.stock}}
         <!--TODO Genre skal inkluderes-->
-        <button (click)="DeleteProduct(product); ">Delete</button>  
+        <button (click)="DeleteProduct(product); ">Delete</button>
         <br>
         <!--TODO
             Den burde have en Confirm, så man ikke kommer til at slette en for hurtigt.
@@ -90,10 +83,10 @@
 
 <div>
     <label>Post product with name:
-    <input #name />
-    <input #GenreId/>
+        <input #name />
+        <input #GenreId />
     </label>
     <!-- (click) passes input value to add() and then clears the input -->
     <button (click)="AddProduct(name.value); ">Post</button>
-   
+
 </div>

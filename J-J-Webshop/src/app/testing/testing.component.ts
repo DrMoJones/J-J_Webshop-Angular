@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { debounce, debounceTime } from 'rxjs/operators';
 
 
+
 @Component({
   selector: 'app-testing',
   templateUrl: './testing.component.html',
@@ -54,24 +55,17 @@ export class TestingComponent implements OnInit {
 
   DeleteProduct(product: Product): void{
     this.products = this.products.filter(h => h !== product);
-    this.ProductService.DeleteProduct(product).subscribe();
-    
-    //this.GetGenres();
+    this.ProductService.DeleteProduct(product).subscribe();    
   }
 
   AddProduct(product: Product): void{
     product.name = product.name.trim();
     if (!product.name) { return; }
-    
-
-
     this.ProductService.AddProducts(product)
       .subscribe(product => {
         this.products.push(product)
       })
   }
-
-
 
   //#region CRUD genres
   GetGenres(): void {
