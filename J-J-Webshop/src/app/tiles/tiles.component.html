@@ -1,11 +1,11 @@
 <br>
 <div id="Centered">
-  <div class="grid-item-container load-in">
-    <div class="grid-item">
+  <div class="grid-item-container load-in" *ngIf="products.length > 0">
+    <div class="grid-item"  *ngFor="let product of products">
       <div>
         <img class="Posters" src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Typical_Tetris_Game.svg" alt="Poster">
         <div class="Titlecard">
-          <p class="Titles">Tetris</p>
+          <p class="Titles">{{product.name}}</p>
         </div>
       </div>
     </div>
