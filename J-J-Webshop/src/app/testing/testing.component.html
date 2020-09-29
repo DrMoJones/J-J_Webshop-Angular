@@ -1,68 +1,35 @@
 <p>Genres</p>
+
+<div>
+    <form (ngSubmit)="onSubmit()" #genreForm="ngForm">
+        <div class="form-group">
+            <input type="text" id="genre" name="genre" required [(ngModel)]="genreName">
+        </div>
+    </form>
+</div>
+<div *ngIf="selectedGenre">
+    <p>{{ selectedGenre.genreName | uppercase }} details</p>
+    <div><span>id: </span> {{selectedGenre.id}}</div>
+</div>
+
 <ul>
-    <!--
-        *ngfor laver en list af vores objekter 
-        [class.selected] gør at hvis at vores li er selected og giver den så den tilpassede style
-        Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
-    -->
-    <li *ngFor="let genre of genres">
+    <li *ngFor="let genre of genres" (click)="onSelect(genre);genreEditChange();">
         {{genre.id}},
         {{genre.genreName}}
         <button (click)="Delete(genre);">Delete</button>
-
-
-        <button (click)="genreEditChange();">Edit</button>
-        <div *ngIf="genreEdit">
-            <h1>Hero Form</h1>
-            
-        </div>
         <br>
     </li>
 </ul>
-
-<!--
-<div>
-    <label>Find Genre by id:
-    <input #Id />
-    </label>
-     (click) passes input value to GetGenre() and then clears the input 
-    <button (click)="GetGenre(Id.value); ">
-    Find
-    </button>
-    <div *ngIf="genre">
-        <h2>{{genre.id}}, {{genre.genreName}}</h2>
-    </div>
-</div>
--->
 
 <div>
     <label>Post genre with name:
         <input #name />
 
     </label>
-    <!-- (click) passes input value to add() and then clears the input -->
     <button (click)="Add(genre.genreName); ">Post</button>
 </div>
 
-
-<!-- En knap for at delete ud fra ID, men opdatere ikke sig selv så vi bruger en knap uden for der sletter den for os.
-<div>
-    <label>Delete genre with id:
-    <input #id />
-    </label>
-    (click) passes input value to add() and then clears the input 
-    <button (click)="Delete(id.value); ">Post</button>
-   
-</div>
--->
-
-
 <ul>
-    <!--
-        *ngfor laver en list af vores objekter 
-        [class.selected] gør at hvis at vores li er selected og giver den så den tilpassede style
-        Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
-    -->
     <li *ngFor="let product of products">
         <span>
             {{product.name}}
@@ -71,12 +38,9 @@
         {{product.description}}
         {{product.genreId}}
         remaining stock = {{product.stock}}
-        <!--TODO Genre skal inkluderes-->
+        {{product.genre.genreName}}
         <button (click)="DeleteProduct(product); ">Delete</button>
         <br>
-        <!--TODO
-            Den burde have en Confirm, så man ikke kommer til at slette en for hurtigt.
-        -->
     </li>
 </ul>
 
@@ -86,7 +50,6 @@
         <input #name />
         <input #GenreId />
     </label>
-    <!-- (click) passes input value to add() and then clears the input -->
     <button (click)="AddProduct(name.value); ">Post</button>
 
 </div>

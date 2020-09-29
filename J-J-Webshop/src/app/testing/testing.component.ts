@@ -21,6 +21,7 @@ export class TestingComponent implements OnInit {
   product: Product;
   genres: Genre[];
   genre: Genre;
+  selectedGenre: Genre;
   genreEdit: boolean;
 
 
@@ -35,6 +36,11 @@ export class TestingComponent implements OnInit {
     this.genreEdit = false;
     this.GetGenres();
     this.GetProducts();
+  }
+
+  onSelect(genre: Genre){
+    this.selectedGenre = genre;
+    console.log(this.selectedGenre);
   }
 
   genreEditChange(){
@@ -76,6 +82,26 @@ export class TestingComponent implements OnInit {
   GetGenre(id: number): void {
     this.GenreService.GetGenre(id)
       .subscribe(genre => this.genre = genre)
+  }
+
+  AddOrUpdateGenre(id: number, genreName: string){
+    if(this.genreEdit){
+      genreName = genreName.trim();
+      //var test: number = +id;
+      if (!genreName) { return; }
+      this.GenreService.UpdateGenre(id, {id, genreName} as Genre)
+        .subscribe()
+    }
+    else{
+      id = null;
+      genreName = genreName.trim();
+      if (!genreName) { return; }
+      this.GenreService.AddGenre({ genreName } as Genre)
+        .subscribe(genre => {
+          this.genres.push(genre)
+        })
+    }
+
   }
 
   Add(genreName: string): void{
