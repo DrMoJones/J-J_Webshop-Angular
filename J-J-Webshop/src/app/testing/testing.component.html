@@ -1,92 +1,156 @@
-<p>Genres</p>
+<h2>Admin page</h2>
+
+<div *ngIf="!selectedGenre">
+    <form #genreFormIns="ngForm" (ngSubmit)="AddOrUpdateGenre(0, name.value)">
+        <label for="name">Name for NEW genre</label>
+        <div>
+            <input type="text" name="genreName" id="genreName" required [(ngModel)]="genreModel.genreName"
+                #name="ngModel">
+            <div [hidden]="name.valid || name.pristine">
+                Name is required
+            </div>
+        </div>
+        <button type="submit" [disabled]="!genreFormIns.valid">Submit</button>
+    </form>
+</div>
+
+<div *ngIf="selectedGenre">
+    <form (ngSubmit)="AddOrUpdateGenre(selectedGenre.id, name.value)" #genreFormUpd="ngForm">
+        <label for="genreName">UPDATE genre WITH id {{selectedGenre.id}}</label>
+        <div>
+            <input type="text" name="genre" id="genre" required [(ngModel)]="selectedGenre.genreName" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine">
+                Name is required
+            </div>
+        </div>
+        <button (click)="genreEditChangeFalse()">Cancel</button>
+        <button type="submit" [disabled]="!genreFormUpd.valid">Submit</button>
+    </form>
+</div>
+
 <ul>
-    <!--
-        *ngfor laver en list af vores objekter 
-        [class.selected] gør at hvis at vores li er selected og giver den så den tilpassede style
-        Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
-    -->
-    <li *ngFor="let genre of genres">
-        {{genre.id}},
-        {{genre.genreName}}
+    <li *ngFor="let genre of genres" (click)="onSelectGenre(genre);genreEditChangeTrue();">
+        Genre: {{genre.genreName}}
         <button (click)="Delete(genre);">Delete</button>
+        <br>
+    </li>
+</ul>
 
+<div *ngIf="!selectedProduct">
+    <form (ngSubmit)="AddOrUpdateProduct(productModel)" #ProductFormIns="ngForm">
+        <label for="AddProduct"> Add new product with genre</label>
+        <div>
+            Product Name: <input type="text" name="ProductName" id="ProductName" required
+                [(ngModel)]="productModel.name" #ProductName="ngModel">
+            <div [hidden]="ProductName.valid || ProductName.pristine">
+                Name is required
+            </div>
+            <br>
+            Product Price: <input type="number" name="ProductPrice" id="ProductPrice" required
+                [(ngModel)]="productModel.price" #price="ngModel">
+            <div [hidden]="price.valid || price.pristine">
+                Price is required
+            </div>
+            <br>
+            Product Description: <input type="text" name="ProductDescription" id="ProductDescription" required
+                [(ngModel)]="productModel.description" #description="ngModel">
+            <div [hidden]="description.valid || description.pristine">
+                Description is required
+            </div>
+            <br>
 
-        <button (click)="genreEditChange();">Edit</button>
-        <div *ngIf="genreEdit">
-            <h1>Hero Form</h1>
-            
+            <div>
+                <label for="Genre">Genres: </label>
+                <select id="Genre" required [(ngModel)]="productModel.genreId" name="genre" #genre="ngModel">
+                    <option *ngFor="let genre of genres" [ngValue]="genre.id">
+                        {{genre.genreName}}
+                    </option>
+                </select>
+                <div [hidden]="genre.valid || genre.pristine">
+                    You need to pick a valid genre
+                </div>
+            </div>
+            Product Stock: <input type="number" name="ProductStock" id="ProductStock" required
+                [(ngModel)]="productModel.stock" #ProductStock="ngModel">
+            <div [hidden]="ProductStock.valid || ProductStock.pristine">
+                how much is in stock
+            </div>
+            <br>
+
         </div>
         <br>
-    </li>
-</ul>
 
-<!--
-<div>
-    <label>Find Genre by id:
-    <input #Id />
-    </label>
-     (click) passes input value to GetGenre() and then clears the input 
-    <button (click)="GetGenre(Id.value); ">
-    Find
-    </button>
-    <div *ngIf="genre">
-        <h2>{{genre.id}}, {{genre.genreName}}</h2>
-    </div>
-</div>
--->
+        <button type="submit" [disabled]="!ProductFormIns.valid">Submit</button>
 
-<div>
-    <label>Post genre with name:
-        <input #name />
-
-    </label>
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="Add(genre.genreName); ">Post</button>
+    </form>
 </div>
 
 
-<!-- En knap for at delete ud fra ID, men opdatere ikke sig selv så vi bruger en knap uden for der sletter den for os.
-<div>
-    <label>Delete genre with id:
-    <input #id />
-    </label>
-    (click) passes input value to add() and then clears the input 
-    <button (click)="Delete(id.value); ">Post</button>
-   
+<div *ngIf="selectedProduct">
+    <form (ngSubmit)="AddOrUpdateProduct(selectedProduct)" #productFormUpd="ngForm">
+        <label for="Update">Updating product with id: {{selectedProduct.id}}</label>
+        <div>
+            Product name: <input type="text" name="ProductName" id="ProductName" required
+                [(ngModel)]="selectedProduct.name" #productName>
+            <div [hidden]="productName.valid || productName.pristine">
+                Name is required
+            </div>
+        </div>
+
+        <br>
+
+        Product Price: <input type="number" name="ProductPrice" id="ProductPrice" required
+            [(ngModel)]="selectedProduct.price" #price="ngModel">
+        <div [hidden]="price.valid || price.pristine">
+            Price is required
+        </div>
+
+        <br>
+
+        Product Description: <input type="text" name="ProductDescription" id="ProductDescription" required
+            [(ngModel)]="selectedProduct.description" #description="ngModel">
+        <div [hidden]="description.valid || description.pristine">
+            Description is required
+        </div>
+
+        <br>
+
+        <div>
+            <label for="Genre">Genres: </label>
+            <select id="Genre" required [(ngModel)]="selectedProduct.genreId" name="genre" #genre="ngModel">
+                <option *ngFor="let genre of genres" [ngValue]="genre.id">
+                    {{genre.genreName}}
+                </option>
+            </select>
+        </div>
+        Product Stock: <input type="number" name="ProductStock" id="ProductStock" required
+            [(ngModel)]="selectedProduct.stock" #ProductStock="ngModel">
+        <div [hidden]="ProductStock.valid || ProductStock.pristine">
+            how much is in stock
+        </div>
+
+        <br>
+
+        <br>
+
+        <button (click)="ProductEditFalse()"> Cancel</button>
+        <button type="submit" [disabled]="!productFormUpd.valid">Submit</button>
+    </form>
 </div>
--->
+
 
 
 <ul>
-    <!--
-        *ngfor laver en list af vores objekter 
-        [class.selected] gør at hvis at vores li er selected og giver den så den tilpassede style
-        Den laver sine egne naming conventions, Og der bliver vores GenreName til genreName
-    -->
-    <li *ngFor="let product of products">
+    <li *ngFor="let product of products" (click)="OnSelectProduct(product);ProductEditTrue()">
         <span>
-            {{product.name}}
+            {{product.name}},
         </span>
-        {{product.price}}
-        {{product.description}}
-        {{product.genreId}}
-        remaining stock = {{product.stock}}
-        <!--TODO Genre skal inkluderes-->
+        {{product.price}},
+        {{product.description}},
+        {{product.genreId}},
+        remaining stock = {{product.stock}},
+        {{product.genre.genreName}}
         <button (click)="DeleteProduct(product); ">Delete</button>
         <br>
-        <!--TODO
-            Den burde have en Confirm, så man ikke kommer til at slette en for hurtigt.
-        -->
     </li>
 </ul>
-
-
-<div>
-    <label>Post product with name:
-        <input #name />
-        <input #GenreId />
-    </label>
-    <!-- (click) passes input value to add() and then clears the input -->
-    <button (click)="AddProduct(name.value); ">Post</button>
-
-</div>
