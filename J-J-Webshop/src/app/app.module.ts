@@ -13,6 +13,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProductDescriptionComponent } from './productDescription/productDescription.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TestingComponent } from './testing/testing.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TestingComponent } from './testing/testing.component';
     UserComponent,
     CartComponent,
     TestingComponent,
-    ProductDescriptionComponent
+    ProductDescriptionComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

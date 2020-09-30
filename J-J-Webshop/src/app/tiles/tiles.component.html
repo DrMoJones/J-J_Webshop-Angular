@@ -1,7 +1,7 @@
 <br>
 <div id="Centered">
   <div class="grid-item-container load-in" *ngIf="products.length > 0">
-    <div class="grid-item"  *ngFor="let product of products">
+    <div class="grid-item"  *ngFor="let product of products" [routerLink]="['/description', product.id]">
       <div>
         <img class="Posters" src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Typical_Tetris_Game.svg" alt="Poster">
         <div class="Titlecard">
