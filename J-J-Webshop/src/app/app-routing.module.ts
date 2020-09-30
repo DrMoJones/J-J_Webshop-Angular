@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 
 const routes: Routes = [
+  {path: '', redirectTo: 'shop', pathMatch: 'full' },
   {path: 'cart', component: CartComponent},
   {path: 'description/:id', component: ProductDescriptionComponent},
   {path: 'shop', component: TilesComponent},
