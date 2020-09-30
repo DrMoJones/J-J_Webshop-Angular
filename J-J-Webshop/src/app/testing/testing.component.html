@@ -1,33 +1,40 @@
-<p>Genres</p>
+<h2>Admin page</h2>
 
-<div>
-    <form (ngSubmit)="onSubmit()" #genreForm="ngForm">
-        <div class="form-group">
-            <input type="text" id="genre" name="genre" required [(ngModel)]="genreName">
+<div *ngIf="!selectedGenre">
+    <form #genreFormIns="ngForm" (ngSubmit)="onSubmitGenre(0, name.value)" >
+        <label for="name">Name for NEW genre</label>
+        <div>
+            <input type="text" id="genreName" name="genreName" required [(ngModel)]="genreModel.genreName" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine">
+                Name is required
+            </div>
         </div>
+        <button type="submit" [disabled]="!genreFormIns.form.valid">Submit</button>
     </form>
 </div>
+
 <div *ngIf="selectedGenre">
-    <p>{{ selectedGenre.genreName | uppercase }} details</p>
-    <div><span>id: </span> {{selectedGenre.id}}</div>
+    <form (ngSubmit)="onSubmitGenre(selectedGenre.id, name.value)" #genreFormUpd="ngForm">
+        <label for="genreName">UPDATE genre WITH id {{selectedGenre.id}}</label>
+        <div>
+            <input type="text" id="genre" name="genre" required [(ngModel)]="selectedGenre.genreName" #name="ngModel">
+            <div [hidden]="name.valid || name.pristine">
+                Name is required
+            </div>
+        </div>
+        <button (click)="genreEditChangeFalse()">Cancel</button>
+        <button type="submit" [disabled]="!genreFormUpd.form.valid">Submit</button>
+    </form>
 </div>
 
 <ul>
-    <li *ngFor="let genre of genres" (click)="onSelect(genre);genreEditChange();">
+    <li *ngFor="let genre of genres" (click)="onSelect(genre);genreEditChangeTrue();">
         {{genre.id}},
         {{genre.genreName}}
         <button (click)="Delete(genre);">Delete</button>
         <br>
     </li>
 </ul>
-
-<div>
-    <label>Post genre with name:
-        <input #name />
-
-    </label>
-    <button (click)="Add(genre.genreName); ">Post</button>
-</div>
 
 <ul>
     <li *ngFor="let product of products">

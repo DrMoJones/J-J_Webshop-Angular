@@ -35,6 +35,8 @@ export class GenreService {
       .pipe(tap(_ => console.log(`posted genre with name = ${genre.genreName}`)))
   }
 
+  
+
   UpdateGenre(id: number, genre: Genre){
     const url = `${this.GenreUrl}/${id}`
     /* var test: number = +id;
