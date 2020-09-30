@@ -1,0 +1,75 @@
+h1{
+  font-size: 45px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-columns: 300px auto;
+}
+
+.grid-item{
+  padding: 20px 20px 20px 0px;
+}
+
+.stats{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#Centered{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#Content{
+  max-width: 1200px;
+  height: 100%;
+  padding: 20px;
+}
+
+#Poster{
+  display: flex;
+  object-fit: contain;
+  overflow: visible;
+  max-width: 300px;
+}
+
+#Blurb{
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  max-width: 500px;
+  padding-left: 20px;
+}
+
+#Blurb button {
+  height: 40px;
+  margin: 10px;
+  border: none;
+  background-color: var(--highlightO);
+  color: var(--text);
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: background-color 0.5s;
+  transition: color 0.5s;
+}
+
+#Blurb button:hover {
+  cursor: pointer;
+  background-color: var(--highlightB);
+  color: var(--text-BG);
+}
+
+#plot{
+  font-size: 17px;
+}
+
+
+p{
+  display: inline;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
