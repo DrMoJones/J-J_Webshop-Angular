@@ -5,7 +5,13 @@
   </div>
 
   <div class="grid-item" id="Searchbar-container">
-    <input id="Searchbar" type="text">
-    <button type="submit" [disabled]="!titleForm.valid" (click)="Search(this.titleForm.value)" >Search</button>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <ul>
+      <li *ngFor="let product of products$">
+        <a routerLink="/description/{{product.id}}">
+          {{product.name}}
+        </a>
+      </li>
+    </ul>
   </div>
 </div>

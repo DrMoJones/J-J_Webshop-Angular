@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from "@angular/forms";
+import { Observable, Subject} from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+
+import { Product } from "../Models/Product";
+import { ProductsService } from "../Services/products.service";
 
 @Component({
   selector: 'app-header',
@@ -7,19 +11,21 @@ import { FormGroup, FormControl } from "@angular/forms";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  products$: Observable<Product[]>
+  private searchTerms = new Subject<string>();
 
-  constructor() { }
+  constructor(private productsService: ProductsService) { }
 
-  titleForm = new FormControl();
-
-  ngOnInit(): void {
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 
-  Search(title){
-    //Should probably use Filter. With the current setup and timeconstraint i'm using find
-    //let movie = this.OMDBArray.find(x => x.imdb.Title === title);
-    //console.log(movie.imdb.imdbID);
-    //this.router.navigateByUrl('/Movie/' + movie.imdb.imdbID);
+  ngOnInit(): void {
+    this.products$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.productsService.searchProducts(term))
+    );
   }
 
 }
