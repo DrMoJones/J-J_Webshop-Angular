@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GenreService } from '../Services/genre.service';
 import { ClassGenre, Genre } from '../Models/Genre';
-import { Product } from '../Models/Product';
+import { ClassProduct, Product } from '../Models/Product';
 import { ProductsService } from '../Services/products.service';
 
 import { ActivatedRoute } from '@angular/router';
@@ -15,43 +15,44 @@ import { debounce, debounceTime } from 'rxjs/operators';
   styleUrls: ['./testing.component.css']
 })
 export class TestingComponent implements OnInit {
-  products: Product[];
-  product: Product;
   genres: Genre[];
   genre: Genre;
   selectedGenre: Genre;
   genreEdit: boolean;
   genreModel = new ClassGenre();
 
+  products: Product[];
+  product: Product;
+  productEdit: boolean;
+  selectedProduct: Product;
+  productModel = new ClassProduct();
+
   constructor(
     private GenreService: GenreService,
     private ProductService: ProductsService,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private location: Location
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.genreEdit = false;
     this.GetGenres();
     this.GetProducts();
-    
+
   }
 
   //#region CRUD genres
-  genreEditChangeTrue(){
+  genreEditChangeTrue() {
     this.genreEdit = true
   }
 
-  genreEditChangeFalse(){
+  genreEditChangeFalse() {
     this.genreEdit = false;
     this.selectedGenre = null;
+    this.GetGenres();
   }
 
-  onSubmitGenre(id: number, genreName: string){
-    this.AddOrUpdateGenre(id, genreName);
-  }
-
-  onSelect(genre: Genre){
+  onSelectGenre(genre: Genre) {
     this.selectedGenre = genre;
     console.log(this.selectedGenre);
   }
@@ -66,15 +67,15 @@ export class TestingComponent implements OnInit {
       .subscribe(genre => this.genre = genre)
   }
 
-  AddOrUpdateGenre(id: number, genreName: string){
-    if(this.genreEdit){
+  AddOrUpdateGenre(id: number, genreName: string) {
+    if (this.genreEdit) {
       if (!genreName) { return; }
       genreName = genreName.trim();
       //var test: number = +id;
-      this.GenreService.UpdateGenre(id, {id, genreName} as Genre)
+      this.GenreService.UpdateGenre(id, { id, genreName } as Genre)
         .subscribe()
     }
-    else{
+    else {
       id = null;
       if (!genreName) { return; }
       genreName = genreName.trim();
@@ -83,10 +84,10 @@ export class TestingComponent implements OnInit {
           this.genres.push(genre)
         })
     }
-
+    this.GetGenres();
   }
 
-  Add(genreName: string): void{
+  Add(genreName: string): void {
     genreName = genreName.trim();
     if (!genreName) { return; }
     this.GenreService.AddGenre({ genreName } as Genre)
@@ -99,35 +100,72 @@ export class TestingComponent implements OnInit {
     genreName = genreName.trim();
     //var test: number = +id;
     if (!genreName) { return; }
-    this.GenreService.UpdateGenre(id, {id, genreName} as Genre)
-      .subscribe()  
+    this.GenreService.UpdateGenre(id, { id, genreName } as Genre)
+      .subscribe()
   }
 
 
-  Delete(genre: Genre): void{
+  Delete(genre: Genre): void {
     this.genres = this.genres.filter(h => h !== genre);
     this.GenreService.DeleteGenre(genre).subscribe();
-    
+
     //this.GetGenres();
   }
   //#endregion
 
-  GetProducts(){
+  //#region Products
+  ProductEditTrue() {
+    this.productEdit = true;
+  }
+
+  ProductEditFalse() {
+    this.productEdit = false;
+    this.selectedProduct = null;
+    this.GetProducts();
+  }
+
+  OnSelectProduct(product: Product) {
+    this.selectedProduct = product;
+    console.log(this.selectedProduct);
+  }
+
+  GetProducts() {
     this.ProductService.GetProducts()
       .subscribe(products => this.products = products)
   }
 
-  GetProduct(id: number){
+  GetProduct(id: number) {
     this.ProductService.GetProduct(id)
       .subscribe(product => this.product = product)
   }
 
-  DeleteProduct(product: Product): void{
-    this.products = this.products.filter(h => h !== product);
-    this.ProductService.DeleteProduct(product).subscribe();    
+  AddOrUpdateProduct(product: Product) {
+    if (this.productEdit) {
+      if (!product.name) { return; }
+      product.name = product.name.trim();
+      product.description = product.description.trim();
+      this.ProductService.UpdateProduct(product.id, product)
+        .subscribe()
+    }
+    else {
+      if (!product.name) { return }
+      product.name = product.name.trim();
+      product.description = product.description.trim();
+
+      this.ProductService.AddProducts(product)
+        .subscribe(product => {
+          this.products.push(product)
+        })
+    }
+    this.GetProducts();
   }
 
-  AddProduct(product: Product): void{
+  DeleteProduct(product: Product): void {
+    this.products = this.products.filter(h => h !== product);
+    this.ProductService.DeleteProduct(product).subscribe();
+  }
+
+  AddProduct(product: Product): void {
     product.name = product.name.trim();
     if (!product.name) { return; }
     this.ProductService.AddProducts(product)
@@ -135,5 +173,6 @@ export class TestingComponent implements OnInit {
         this.products.push(product)
       })
   }
+  //#endregion
 
 }

@@ -29,11 +29,14 @@ export class ProductsService {
   }
 
   AddProducts(product: Product): Observable<Product>{
-    this.product.name = name;
-    
-
     return this.http.post<Product>(this.productUrl, product, this.httpOptions)
       .pipe(tap(_ => console.log(`posted product with name = ${product.name}`)))
+  }
+
+  UpdateProduct(id:number, product: Product){
+    const url = `${this.productUrl}/${id}`
+    return this.http.put(url, product, this.httpOptions)
+      .pipe(tap(_ => console.log(`updated genre with id ${id}`)))
   }
 
   DeleteProduct(product: Product | number): Observable<Product>{

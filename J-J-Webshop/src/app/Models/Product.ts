@@ -9,3 +9,13 @@ export interface Product {
     stock: number;
     genre: Genre;
 }
+
+export class ClassProduct{
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+    genreId: number;
+    stock: number;
+    genre: Genre;
+}
