@@ -164,15 +164,6 @@ export class TestingComponent implements OnInit {
     this.products = this.products.filter(h => h !== product);
     this.ProductService.DeleteProduct(product).subscribe();
   }
-
-  AddProduct(product: Product): void {
-    product.name = product.name.trim();
-    if (!product.name) { return; }
-    this.ProductService.AddProducts(product)
-      .subscribe(product => {
-        this.products.push(product)
-      })
-  }
   //#endregion
 
 }
