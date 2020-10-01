@@ -154,3 +154,46 @@
         <br>
     </li>
 </ul>
+
+
+
+
+<br>
+
+
+
+<div *ngIf="!selectedLogin">
+  <form #loginFormIns="ngForm" (ngSubmit)="AddOrUpdateLogin(loginModel)">
+      <label for="email">Email for NEW Login</label>
+      <div>
+          <input type="text" name="loginEmail" id="loginEmail" required [(ngModel)]="loginModel.email"
+              #email="ngModel">
+          <div [hidden]="email.valid || email.pristine">
+              Email is required
+          </div>
+      </div>
+      <button type="submit" [disabled]="!loginFormIns.valid">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="selectedLogin">
+  <form (ngSubmit)="AddOrUpdateLogin(selectedLogin)" #loginFormUpd="ngForm">
+      <label for="loginEmail">UPDATE login WITH id {{selectedLogin.id}}</label>
+      <div>
+          <input type="text" name="loginEmail" id="loginEmail" required [(ngModel)]="selectedLogin.email" #email="ngModel">
+          <div [hidden]="email.valid || email.pristine">
+              Email is required
+          </div>
+      </div>
+      <button (click)="loginEditChangeFalse()">Cancel</button>
+      <button type="submit" [disabled]="!loginFormUpd.valid">Submit</button>
+  </form>
+</div>
+
+<ul>
+  <li *ngFor="let login of logins" (click)="onSelectLogin(login);loginEditChangeTrue();">
+      Login: {{login.email}}
+      <button (click)="Delete(login);">Delete</button>
+      <br>
+  </li>
+</ul>
