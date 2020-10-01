@@ -11,7 +11,9 @@ export class ProductsService {
   private productUrl = 'api/Products';
   product: Product;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+    ) { }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -28,13 +30,6 @@ export class ProductsService {
       .pipe(tap(_ => console.log(`Fetched products`)))
   }
 
-  searchProducts(term: string): Observable<Product[]> {
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
-    }
-    return this.http.get<Product[]>(`${this.productUrl}/?name=${term}`);
-  }
 
   AddProducts(product: Product): Observable<Product>{
     return this.http.post<Product>(this.productUrl, product, this.httpOptions)
@@ -53,6 +48,15 @@ export class ProductsService {
 
     return this.http.delete<Product>(url, this.httpOptions)
       .pipe(tap(_ => console.log(`deleted Genre with id = ${id}`)))
+  }
+
+  searchProducts(term: string): Observable<Product[]> {
+    const url = `${this.productUrl}/GetName?name=${term}`
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Product[]>(url);
   }
 
 }

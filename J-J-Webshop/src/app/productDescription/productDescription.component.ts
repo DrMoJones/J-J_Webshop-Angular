@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 
@@ -18,12 +18,17 @@ export class ProductDescriptionComponent implements OnInit {
   constructor(
     private productsService: ProductsService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location
-  ) { }
+    
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+   }
 
   ngOnInit()
   {
     this.GetProduct();
+    
   }
 
   GetProduct()
@@ -31,6 +36,12 @@ export class ProductDescriptionComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.productsService.GetProduct(id)
     .subscribe(product => this.product = product)
+
   }
+
+
+  
+
+
 
 }

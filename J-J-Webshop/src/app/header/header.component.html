@@ -5,11 +5,11 @@
   </div>
 
   <div class="grid-item" id="Searchbar-container">
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" placeholder="Search here" />
     <ul>
-      <li *ngFor="let product of products$">
-        <a routerLink="/description/{{product.id}}">
-          {{product.name}}
+      <li *ngFor="let product of products$ | async">
+        <a routerLink="/description/{{product.id}}" (click)="refresh()">
+          {{product.name}}        
         </a>
       </li>
     </ul>
