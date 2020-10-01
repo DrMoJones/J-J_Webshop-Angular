@@ -191,7 +191,7 @@
 </div>
 
 <ul>
-  <li *ngFor="let login of logins" (click)="onSelectLogin(login);loginEditChangeTrue();">
+  <li *ngFor="let login of logins" (click)="OnSelectLogin(login);loginEditChangeTrue();">
       Login: {{login.email}}
       <button (click)="Delete(login);">Delete</button>
       <br>
