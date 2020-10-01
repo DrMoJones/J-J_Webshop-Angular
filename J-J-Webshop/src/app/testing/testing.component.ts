@@ -3,6 +3,9 @@ import { GenreService } from '../Services/genre.service';
 import { ClassGenre, Genre } from '../Models/Genre';
 import { ClassProduct, Product } from '../Models/Product';
 import { ProductsService } from '../Services/products.service';
+import { Customer } from '../Models/Customers'
+import { CustomersService } from '../Services/customers.service'
+
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -27,9 +30,16 @@ export class TestingComponent implements OnInit {
   selectedProduct: Product;
   productModel = new ClassProduct();
 
+  customers: Customer[];
+  customer: Customer;
+  customerEdit: boolean;
+  selectedCustomer: Customer;
+  customerModel = new Customer();
+
   constructor(
     private GenreService: GenreService,
     private ProductService: ProductsService,
+    private CustomersService: CustomersService,
     private route: ActivatedRoute,
     private location: Location
   ) { }
@@ -38,7 +48,12 @@ export class TestingComponent implements OnInit {
     this.genreEdit = false;
     this.GetGenres();
     this.GetProducts();
+    this.GetCustomers();
+  }
 
+  private delay(ms: number)
+  {
+  return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   //#region CRUD genres
@@ -67,7 +82,7 @@ export class TestingComponent implements OnInit {
       .subscribe(genre => this.genre = genre)
   }
 
-  AddOrUpdateGenre(id: number, genreName: string) {
+  async AddOrUpdateGenre(id: number, genreName: string) {
     if (this.genreEdit) {
       if (!genreName) { return; }
       genreName = genreName.trim();
@@ -84,36 +99,21 @@ export class TestingComponent implements OnInit {
           this.genres.push(genre)
         })
     }
+    await this.delay(500);
     this.GetGenres();
   }
 
-  Add(genreName: string): void {
-    genreName = genreName.trim();
-    if (!genreName) { return; }
-    this.GenreService.AddGenre({ genreName } as Genre)
-      .subscribe(genre => {
-        this.genres.push(genre)
-      })
-  }
-
-  Update(id: number, genreName: string): void {
-    genreName = genreName.trim();
-    //var test: number = +id;
-    if (!genreName) { return; }
-    this.GenreService.UpdateGenre(id, { id, genreName } as Genre)
-      .subscribe()
-  }
-
-
   Delete(genre: Genre): void {
+    if(confirm("Er du sikker")){
     this.genres = this.genres.filter(h => h !== genre);
     this.GenreService.DeleteGenre(genre).subscribe();
 
     //this.GetGenres();
   }
+  }
   //#endregion
 
-  //#region Products
+  //#region CRUD Products
   ProductEditTrue() {
     this.productEdit = true;
   }
@@ -139,7 +139,7 @@ export class TestingComponent implements OnInit {
       .subscribe(product => this.product = product)
   }
 
-  AddOrUpdateProduct(product: Product) {
+  async AddOrUpdateProduct(product: Product) {
     if (this.productEdit) {
       if (!product.name) { return; }
       product.name = product.name.trim();
@@ -148,7 +148,7 @@ export class TestingComponent implements OnInit {
         .subscribe()
     }
     else {
-      if (!product.name) { return }
+      if (!product.name) { return; }
       product.name = product.name.trim();
       product.description = product.description.trim();
 
@@ -157,13 +157,73 @@ export class TestingComponent implements OnInit {
           this.products.push(product)
         })
     }
+    await this.delay(500);
     this.GetProducts();
   }
 
   DeleteProduct(product: Product): void {
+    if(confirm("Er du sikker")){
     this.products = this.products.filter(h => h !== product);
     this.ProductService.DeleteProduct(product).subscribe();
+  } 
   }
   //#endregion
 
+  //#region CRUD Customers
+  customerEditChangeTrue(){
+    this.customerEdit = true;
+  }
+
+  customerEditChangeFalse(){
+    this.customerEdit = false;
+    this.selectedCustomer = null;
+    this.GetCustomers();
+  }
+
+  onSelectCustomer(customer: Customer){
+    this.selectedCustomer = customer;
+    console.log(this.selectedCustomer);
+  }
+
+  GetCustomers() {
+    this.CustomersService.GetCustomers()
+    .subscribe(customers => this.customers = customers)
+  }
+
+  GetCustomer(id: number): void {
+    this.CustomersService.GetCustomer(id)
+      .subscribe(customer => this.customer = customer)
+  }
+
+  async AddOrUpdateCustomer(customer: Customer){
+    if (this.customerEdit) {
+      if (!customer.name) { return; }
+      customer.name = customer.name.trim();
+      customer.address = customer.address.trim();
+      this.CustomersService.UpdateCustomer(customer.id, customer)
+        .subscribe()
+    }
+    else{
+      if (!customer.name) { return; }
+      customer.name = customer.name.trim();
+      customer.address = customer.address.trim();
+      customer.logInId = 1;
+      this.CustomersService.AddCustomer(customer)
+        .subscribe(customer => {
+          this.customers.push(customer)
+        })
+    }
+    await this.delay(500);
+    this.GetCustomers();
+  }
+
+  DeleteCustomer(customer: Customer): void {
+    if(confirm("Er du sikker")){
+    this.customers = this.customers.filter(h => h !== customer);
+    this.CustomersService.DeleteCustomer(customer).subscribe();
+
+  }
+  }
+
+  //#endregion
 }

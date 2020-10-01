@@ -29,12 +29,15 @@
 </div>
 
 <ul>
+    <p>En liste af vores nuværende genre</p>
+    <p>Klik på en for at redigere den</p>
     <li *ngFor="let genre of genres" (click)="onSelectGenre(genre);genreEditChangeTrue();">
         Genre: {{genre.genreName}}
         <button (click)="Delete(genre);">Delete</button>
         <br>
     </li>
 </ul>
+
 
 <div *ngIf="!selectedProduct">
     <form (ngSubmit)="AddOrUpdateProduct(productModel)" #ProductFormIns="ngForm">
@@ -91,7 +94,7 @@
         <label for="Update">Updating product with id: {{selectedProduct.id}}</label>
         <div>
             Product name: <input type="text" name="ProductName" id="ProductName" required
-                [(ngModel)]="selectedProduct.name" #productName>
+                [(ngModel)]="selectedProduct.name" #productName="ngModel">
             <div [hidden]="productName.valid || productName.pristine">
                 Name is required
             </div>
@@ -138,9 +141,9 @@
     </form>
 </div>
 
-
-
 <ul>
+    <p>En liste af vores nuværende produkter</p>
+    <p>Klik på en for at redigere den</p>
     <li *ngFor="let product of products" (click)="OnSelectProduct(product);ProductEditTrue()">
         <span>
             {{product.name}},
@@ -151,6 +154,80 @@
         remaining stock = {{product.stock}},
         {{product.genre.genreName}}
         <button (click)="DeleteProduct(product); ">Delete</button>
+        <br>
+    </li>
+</ul>
+
+<div *ngIf="!selectedCustomer">
+    <form (ngSubmit)="AddOrUpdateCustomer(customerModel)" #customerFormIns="ngForm">
+        <label for="Update">Updating customer with id: {{customerModel.id}}</label>
+        <div>
+            Customer name: <input type="text" name="customerName" id="customerName" required
+                [(ngModel)]="customerModel.name" #customerName="ngModel">
+            <div [hidden]="customerName.valid || customerName.pristine">
+                Name is required
+            </div>
+        </div>
+        <div>
+            Address name: <input type="text" name="CustomerAddress" id="CustomerAddress" required
+                [(ngModel)]="customerModel.address" #CustomerAddress="ngModel">
+            <div [hidden]="CustomerAddress.valid || CustomerAddress.pristine">
+                Name is required
+            </div>
+        </div>
+        <div>
+            Telephone number: <input type="number" name="CustomerTelephone" id="CustomerTelephone" required
+                [(ngModel)]="customerModel.telephoneNumber" #CustomerTelephone="ngModel">
+            <div [hidden]="CustomerTelephone.valid || CustomerTelephone.pristine">
+                Name is required
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="!customerFormIns.valid">Submit</button>
+    </form>
+</div>
+
+<div *ngIf="selectedCustomer">
+    <form (ngSubmit)="AddOrUpdateCustomer(selectedCustomer)" #customerFormUpd="ngForm">
+        <label for="Update">Updating customer with id: {{selectedCustomer.id}}</label>
+        <div>
+            Customer name: <input type="text" name="CustomerName" id="CustomerName" required
+                [(ngModel)]="selectedCustomer.name" #CustomerName="ngModel">
+            <div [hidden]="CustomerName.valid || CustomerName.pristine">
+                Name is required
+            </div>
+        </div>
+        <div>
+            Address name: <input type="text" name="CustomerAddress" id="CustomerAddress" required
+                [(ngModel)]="selectedCustomer.address" #CustomerAddress="ngModel">
+            <div [hidden]="CustomerAddress.valid || CustomerAddress.pristine">
+                Name is required
+            </div>
+        </div>
+        <div>
+            Telephone number: <input type="number" name="CustomerTelephone" id="CustomerTelephone" required
+                [(ngModel)]="selectedCustomer.telephoneNumber" #CustomerTelephone="ngModel">
+            <div [hidden]="CustomerTelephone.valid || CustomerTelephone.pristine">
+                Name is required
+            </div>
+        </div>
+
+
+        <button (click)="customerEditChangeFalse()"> Cancel</button>
+        <button type="submit" [disabled]="!customerFormUpd.valid">Submit</button>
+    </form>
+</div>
+
+
+<ul>
+    <li *ngFor="let customer of customers" (click)="onSelectCustomer(customer);customerEditChangeTrue()">
+        Profil navn: {{customer.name}},
+        <br>
+        Din nuværende adresse: {{customer.address}},
+        <br>
+        Dit nuværende tfl nummer: {{customer.telephoneNumber}},
+        <br>
+        <button (click)="DeleteCustomer(customer); ">Delete</button>
         <br>
     </li>
 </ul>

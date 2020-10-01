@@ -36,10 +36,10 @@ export class ProductsService {
       .pipe(tap(_ => console.log(`posted product with name = ${product.name}`)))
   }
 
-  UpdateProduct(id:number, product: Product){
+  UpdateProduct(id: number, product: Product){
     const url = `${this.productUrl}/${id}`
     return this.http.put(url, product, this.httpOptions)
-      .pipe(tap(_ => console.log(`updated genre with id ${id}`)))
+      .pipe(tap(_ => console.log(`updated Product with id ${id}`)))
   }
 
   DeleteProduct(product: Product | number): Observable<Product>{
@@ -47,7 +47,7 @@ export class ProductsService {
     const url = `${this.productUrl}/${id}`
 
     return this.http.delete<Product>(url, this.httpOptions)
-      .pipe(tap(_ => console.log(`deleted Genre with id = ${id}`)))
+      .pipe(tap(_ => console.log(`deleted Product with id = ${id}`)))
   }
 
   searchProducts(term: string): Observable<Product[]> {

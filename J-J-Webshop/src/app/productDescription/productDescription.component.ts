@@ -38,10 +38,4 @@ export class ProductDescriptionComponent implements OnInit {
     .subscribe(product => this.product = product)
 
   }
-
-
-  
-
-
-
 }
