@@ -1,3 +1,6 @@
+import { EmailValidator } from '@angular/forms';
+
+
 export interface Login
 {
   id: number;

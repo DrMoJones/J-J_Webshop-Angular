@@ -6,11 +6,13 @@ import { ProductsService } from '../Services/products.service';
 import { Customer } from '../Models/Customers'
 import { CustomersService } from '../Services/customers.service'
 
+import { LoginService } from "../Services/login.service";
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import { debounce, debounceTime } from 'rxjs/operators';
+import { ClassLogin, Login } from '../Models/Login';
 
 @Component({
   selector: 'app-testing',
@@ -35,13 +37,21 @@ export class TestingComponent implements OnInit {
   customerEdit: boolean;
   selectedCustomer: Customer;
   customerModel = new Customer();
+  
+  login: Login;
+  logins: Login[];
+  selectedLogin: Login;
+  loginEdit: boolean;
+  loginModel= new ClassLogin();
 
   constructor(
     private GenreService: GenreService,
     private ProductService: ProductsService,
     private CustomersService: CustomersService,
+    private LoginService: LoginService,
     private route: ActivatedRoute,
     private location: Location
+
   ) { }
 
   ngOnInit(): void {
@@ -167,6 +177,53 @@ export class TestingComponent implements OnInit {
     this.ProductService.DeleteProduct(product).subscribe();
   } 
   }
+
+
+  loginEditChangeTrue() {
+    this.loginEdit = true
+  }
+
+  loginEditChangeFalse() {
+    this.loginEdit = false;
+    this.selectedLogin = null;
+  }
+
+  GetLogin(id: number) {
+    this.LoginService.GetLogin(id)
+      .subscribe(login => this.login = login)
+  }
+
+  DeleteLogin(login : Login): void {
+    //this.login = this.login.filter(h => h !== login);
+    this.LoginService.DeleteLogin(login).subscribe();
+  }
+
+  OnSelectLogin(login: Login) {
+    this.selectedLogin = login;
+    console.log(this.selectedLogin);
+  }
+
+  AddOrUpdateLogin(login: Login) {
+    if (this.loginEdit) {
+      if (!login.email) { return; }
+      login.email = login.email.trim();
+      login.password = login.password.trim();
+      this.LoginService.UpdateProduct(login.id, login)
+        .subscribe()
+    }
+    else {
+      if (!login.email) { return }
+      login.email = login.email.trim();
+      login.password = login.password.trim();
+
+      this.LoginService.AddLogin(login)
+        .subscribe(login => {
+          this.logins.push(login)
+        })
+    }
+    this.GetLogin(login.id);
+  }
+
   //#endregion
 
   //#region CRUD Customers
