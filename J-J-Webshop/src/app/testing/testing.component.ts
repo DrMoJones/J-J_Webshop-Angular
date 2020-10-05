@@ -178,6 +178,7 @@ export class TestingComponent implements OnInit {
   } 
   }
 
+  //#endregion
 
   loginEditChangeTrue() {
     this.loginEdit = true
@@ -190,6 +191,11 @@ export class TestingComponent implements OnInit {
 
   GetLogin(id: number) {
     this.LoginService.GetLogin(id)
+      .subscribe(login => this.selectedLogin = login)
+  }
+
+  GetLoginByEmail(email: string) {
+    this.LoginService.GetLoginByEmail(email)
       .subscribe(login => this.login = login)
   }
 
@@ -208,7 +214,7 @@ export class TestingComponent implements OnInit {
       if (!login.email) { return; }
       login.email = login.email.trim();
       login.password = login.password.trim();
-      this.LoginService.UpdateProduct(login.id, login)
+      this.LoginService.UpdateLogin(login.id, login)
         .subscribe()
     }
     else {
@@ -224,7 +230,6 @@ export class TestingComponent implements OnInit {
     this.GetLogin(login.id);
   }
 
-  //#endregion
 
   //#region CRUD Customers
   customerEditChangeTrue(){
@@ -237,8 +242,10 @@ export class TestingComponent implements OnInit {
     this.GetCustomers();
   }
 
-  onSelectCustomer(customer: Customer){
+  onSelectCustomer(customer: Customer, login: Login){
     this.selectedCustomer = customer;
+    this.GetLogin(customer.loginId)
+    console.log(this.selectedLogin)
     console.log(this.selectedCustomer);
   }
 
@@ -252,11 +259,13 @@ export class TestingComponent implements OnInit {
       .subscribe(customer => this.customer = customer)
   }
 
-  async AddOrUpdateCustomer(customer: Customer){
+  async AddOrUpdateCustomer(customer: Customer, login: Login){
     if (this.customerEdit) {
       if (!customer.name) { return; }
       customer.name = customer.name.trim();
       customer.address = customer.address.trim();
+      this.LoginService.UpdateLogin(login.id, login)
+        .subscribe()
       this.CustomersService.UpdateCustomer(customer.id, customer)
         .subscribe()
     }
@@ -264,9 +273,13 @@ export class TestingComponent implements OnInit {
       if (!customer.name) { return; }
       customer.name = customer.name.trim();
       customer.address = customer.address.trim();
-      customer.logInId = 1;
-      customer.login.email = "kpdawakopdwa";
-      console.log(customer.login.email);
+      this.LoginService.AddLogin(login)
+        .subscribe(login => {
+          this.logins.push(login)
+        })
+      this.GetLoginByEmail(login.email)
+      await (this.delay(500))
+      customer.loginId = this.login.id
       this.CustomersService.AddCustomer(customer)
         .subscribe(customer => {
           this.customers.push(customer)
@@ -278,9 +291,12 @@ export class TestingComponent implements OnInit {
 
   DeleteCustomer(customer: Customer): void {
     if(confirm("Er du sikker")){
+    this.GetLogin(customer.loginId)
+    
+    
     this.customers = this.customers.filter(h => h !== customer);
     this.CustomersService.DeleteCustomer(customer).subscribe();
-
+    this.LoginService.DeleteLogin(this.selectedLogin).subscribe();
   }
   }
 

@@ -27,12 +27,18 @@ export class LoginService {
     .pipe(tap(_=> console.log(`fetched login id = ${id}`)))
   }
 
+  GetLoginByEmail(email: string): Observable<Login>{
+    const url = `${this.loginUrl}/GetByEmail/${email}`
+    return this.http.get<Login>(url)
+    .pipe(tap(_=> console.log(`fetched login id = ${email}`)))
+  }
+
   AddLogin(login: Login): Observable<Login>{
     return this.http.post<Login>(this.loginUrl, login, this.httpOptions)
     .pipe(tap(_=> console.log(`posted login with id ${login.email}`)))
   }
 
-  UpdateProduct(id:number, login: Login){
+  UpdateLogin(id:number, login: Login){
     const url = `${this.loginUrl}/${id}`
     return this.http.put(url, login, this.httpOptions)
     .pipe(tap(_=> console.log(`updated login with id ${id}`)))

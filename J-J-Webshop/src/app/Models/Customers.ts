@@ -5,7 +5,7 @@ export interface Customer {
     name: string;
     telephoneNumber: number;
     address: string;
-    logInId: number;
+    loginId: number;
     login: Login;
 }
 
@@ -14,6 +14,6 @@ export class Customer {
     name: string;
     telephoneNumber: number;
     address: string;
-    logInId: number;
+    loginId: number;
     login: ClassLogin;
 }

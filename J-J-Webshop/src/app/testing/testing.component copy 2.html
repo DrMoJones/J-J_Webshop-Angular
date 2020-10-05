@@ -160,7 +160,7 @@
 
 <div *ngIf="!selectedCustomer">
     <form (ngSubmit)="AddOrUpdateCustomer(customerModel, loginModel)" #customerFormIns="ngForm">
-        <label for="Update">Add new customer</label>
+        <label for="Update">Updating customer with id: {{customerModel.id}}</label>
         <div>
             Customer name: <input type="text" name="customerName" id="customerName" required
                 [(ngModel)]="customerModel.name" #customerName="ngModel">
@@ -182,6 +182,7 @@
                 Name is required
             </div>
         </div>
+
         <div>
             Email: <input type="email" name="CustomerEmail" id="CustomerEmail" required
                 [(ngModel)]="loginModel.email" #CustomerEmail="ngModel">
@@ -226,6 +227,8 @@
                 Your telephone is required
             </div>
         </div>
+
+
         <div>
             Email: <input type="email" name="CustomerEmail" id="CustomerEmail" required
                 [(ngModel)]="selectedLogin.email" #CustomerEmail="ngModel">
@@ -240,7 +243,6 @@
                 Your telephone is required
             </div>
         </div>
-
         
 
         <button (click)="customerEditChangeFalse()"> Cancel</button>
@@ -252,16 +254,57 @@
 
 
 <ul>
-    <li *ngFor="let customer of customers" (click)="onSelectCustomer(customer);customerEditChangeTrue()">
+    <li *ngFor="let customer of customers where" (click)="onSelectCustomer(customer);customerEditChangeTrue()">
         Profil navn: {{customer.name}},
         <br>
         Din nuværende adresse: {{customer.address}},
         <br>
         Dit nuværende tfl nummer: {{customer.telephoneNumber}},
         <br>
-        Din nuværende Email: {{customer.login.email}}
+        Din nuværende Email: {{login.email}}
         <br>
         <button (click)="DeleteCustomer(customer); ">Delete</button>
         <br>
     </li>
 </ul>
+
+
+
+<br>
+
+
+
+<div *ngIf="!selectedLogin">
+  <form #loginFormIns="ngForm" (ngSubmit)="AddOrUpdateLogin(loginModel)">
+      <label for="email">Email for NEW Login</label>
+      <div>
+          <input type="text" name="loginEmail" id="loginEmail" required [(ngModel)]="loginModel.email"
+              #email="ngModel">
+          <div [hidden]="email.valid || email.pristine">
+              Email is required
+          </div>
+      </div>
+      <button type="submit" [disabled]="!loginFormIns.valid">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="selectedLogin">
+  <form (ngSubmit)="AddOrUpdateLogin(selectedLogin)" #loginFormUpd="ngForm">
+      <label for="loginEmail">UPDATE login WITH id {{selectedLogin.id}}</label>
+      <div>
+          <input type="text" name="loginEmail" id="loginEmail" required [(ngModel)]="selectedLogin.email" #email="ngModel">
+          <div [hidden]="email.valid || email.pristine">
+              Email is required
+          </div>
+      </div>
+      <div>
+        <input type="text" name="loginPassword" id="loginPassword" required [(ngModel)]="selectedLogin.password" #password="ngModel">
+        <div [hidden]="password.valid || password.pristine">
+            password is required
+        </div>
+    </div>
+      <button (click)="loginEditChangeFalse()">Cancel</button>
+      <button type="submit" [disabled]="!loginFormUpd.valid">Submit</button>
+  </form>
+</div>
+

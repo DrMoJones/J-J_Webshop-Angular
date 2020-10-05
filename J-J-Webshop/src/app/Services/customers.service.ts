@@ -39,7 +39,7 @@ export class CustomersService {
 
     UpdateCustomer(id: number, customer: Customer){
       const url = `${this.customerUrl}/${id}`
-      customer.logInId = 1;
+      customer.loginId = 1;
       return this.http.put(url, customer, this.httpOptions)
       .pipe(tap(_ => console.log(`updated customer with name ${customer.name}`)))
     }
