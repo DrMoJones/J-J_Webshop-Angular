@@ -1,4 +1,4 @@
-import { Login } from "../Models/Login"
+import { ClassLogin, Login } from "../Models/Login"
 
 export interface Customer {
     id: number;
@@ -15,5 +15,5 @@ export class Customer {
     telephoneNumber: number;
     address: string;
     logInId: number;
-    login: Login;
+    login: ClassLogin;
 }

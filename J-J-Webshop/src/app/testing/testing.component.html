@@ -183,6 +183,8 @@
             </div>
         </div>
 
+
+
         <button type="submit" [disabled]="!customerFormIns.valid">Submit</button>
     </form>
 </div>
@@ -194,29 +196,47 @@
             Customer name: <input type="text" name="CustomerName" id="CustomerName" required
                 [(ngModel)]="selectedCustomer.name" #CustomerName="ngModel">
             <div [hidden]="CustomerName.valid || CustomerName.pristine">
-                Name is required
+                Your name is required
             </div>
         </div>
         <div>
             Address name: <input type="text" name="CustomerAddress" id="CustomerAddress" required
                 [(ngModel)]="selectedCustomer.address" #CustomerAddress="ngModel">
             <div [hidden]="CustomerAddress.valid || CustomerAddress.pristine">
-                Name is required
+                Your address is required
             </div>
         </div>
         <div>
             Telephone number: <input type="number" name="CustomerTelephone" id="CustomerTelephone" required
                 [(ngModel)]="selectedCustomer.telephoneNumber" #CustomerTelephone="ngModel">
             <div [hidden]="CustomerTelephone.valid || CustomerTelephone.pristine">
-                Name is required
+                Your telephone is required
             </div>
         </div>
 
+
+        <div>
+            Email: <input type="email" name="CustomerEmail" id="CustomerEmail" required
+                [(ngModel)]="selectedCustomer.login.email" #CustomerEmail="ngModel">
+            <div [hidden]="CustomerEmail.valid || CustomerEmail.pristine">
+                Your email is required
+            </div>
+        </div>
+        <div>
+            Password: <input type="string" name="CustomerPassword" id="CustomerPassword" required
+                [(ngModel)]="selectedCustomer.login.password" #CustomerPassword="ngModel">
+            <div [hidden]="CustomerPassword.valid || CustomerPassword.pristine">
+                Your telephone is required
+            </div>
+        </div>
+        
 
         <button (click)="customerEditChangeFalse()"> Cancel</button>
         <button type="submit" [disabled]="!customerFormUpd.valid">Submit</button>
     </form>
 </div>
+
+
 
 
 <ul>
@@ -226,6 +246,8 @@
         Din nuværende adresse: {{customer.address}},
         <br>
         Dit nuværende tfl nummer: {{customer.telephoneNumber}},
+        <br>
+        Din nuværende Email: {{customer.login.email}}
         <br>
         <button (click)="DeleteCustomer(customer); ">Delete</button>
         <br>
@@ -261,6 +283,12 @@
               Email is required
           </div>
       </div>
+      <div>
+        <input type="text" name="loginPassword" id="loginPassword" required [(ngModel)]="selectedLogin.password" #v="ngModel">
+        <div [hidden]="password.valid || password.pristine">
+            password is required
+        </div>
+    </div>
       <button (click)="loginEditChangeFalse()">Cancel</button>
       <button type="submit" [disabled]="!loginFormUpd.valid">Submit</button>
   </form>

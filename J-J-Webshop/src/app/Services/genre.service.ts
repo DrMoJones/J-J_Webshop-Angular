@@ -33,18 +33,10 @@ export class GenreService {
   AddGenre(genre: Genre): Observable<Genre>{
     return this.http.post<Genre>(this.GenreUrl, genre, this.httpOptions)
       .pipe(tap(_ => console.log(`posted genre with name = ${genre.genreName}`)))
-  }
-
-  
+  }  
 
   UpdateGenre(id: number, genre: Genre){
     const url = `${this.GenreUrl}/${id}`
-    /* var test: number = +id;
-    this.test = JSON.stringify({
-      "id": genre.id,
-      "genreName": genre.genreName
-    });
-    //console.log(this.test);*/
     return this.http.put(url, genre, this.httpOptions)
       .pipe(tap(_ => console.log(`Updated Genre with id ${id}`)))
   }

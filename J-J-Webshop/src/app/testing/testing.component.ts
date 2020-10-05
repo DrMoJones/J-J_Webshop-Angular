@@ -265,6 +265,8 @@ export class TestingComponent implements OnInit {
       customer.name = customer.name.trim();
       customer.address = customer.address.trim();
       customer.logInId = 1;
+      customer.login.email = "kpdawakopdwa";
+      console.log(customer.login.email);
       this.CustomersService.AddCustomer(customer)
         .subscribe(customer => {
           this.customers.push(customer)

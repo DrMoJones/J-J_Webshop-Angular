@@ -11,8 +11,14 @@ export interface Login
 
 export class ClassLogin
 {
-  id: number;
-  email: string;
-  password: string;
-  role: number;
+  constructor(){
+    this.id = 1,
+    this.email = '',
+    this.password = '',
+    this.role = 0
+  }
+  public id: number;
+  public email: string;
+  public password: string;
+  public role: number;
 }
