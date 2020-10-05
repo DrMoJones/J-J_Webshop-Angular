@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
   products$: Observable<Product[]>
   private searchTerms = new Subject<string>();
 
+  Cart: Product[];
+
   constructor(
     private productsService: ProductsService
     ) { }
