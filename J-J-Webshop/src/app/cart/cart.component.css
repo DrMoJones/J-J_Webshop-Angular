@@ -1,0 +1,39 @@
+.grid-container{
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+
+}
+
+.grid-item{
+  padding: 20px 20px 20px 0px;
+}
+
+
+#Poster{
+  display: flex;
+  object-fit: contain;
+  overflow: hidden;
+  max-width: 50px;
+}
+
+#Purchase {
+  height: 40px;
+  margin: 10px 10px 10px 0px;
+  border: none;
+  background-color: var(--highlightO);
+  color: var(--text);
+  font-size: 1.2em;
+  font-weight: bold;
+  transition: background-color 0.5s;
+  transition: color 0.5s;
+}
+
+#Container{
+  margin-left: 30px;
+}
+
+#Purchase:hover {
+  cursor: pointer;
+  background-color: var(--highlightB);
+  color: var(--text-BG);
+}

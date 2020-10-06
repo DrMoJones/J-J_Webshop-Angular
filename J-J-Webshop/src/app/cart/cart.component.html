@@ -1,1 +1,32 @@
-<p>cart works!</p>
+<div id="Container">
+  <H2>Cart</H2>
+
+  <div>
+    <div class="grid-item-container load-in" *ngFor="let item of cart">
+      <div class="grid-container">
+        <div class="grid-item">
+          <img
+            id="Poster"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Typical_Tetris_Game.svg"
+            alt="Poster"
+          />
+        </div>
+
+        <div class="grid-item">
+          <p>{{ item.name }}</p>
+          <p>Price: {{ item.price }}</p>
+          <br />
+        </div>
+
+        <div class="grid-item">
+          <button>-</button>
+          <input #amountBox id="search-box" (input)="amount(amountBox.value)" placeholder="" />
+          <button>+</button>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <button id="Purchase" (click)="onClick()">Finalize purchase</button>
+  </div>
+</div>
