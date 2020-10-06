@@ -1,3 +1,29 @@
 <p>user works!
   todo: description, update button + form, order history
 </p>
+
+<ul>
+  <div *ngIf="customer">
+    Dit navn {{customer.name}}
+    <br>
+    Dit tlf nummer: {{customer.telephoneNumber}}
+    <br>
+    Addressen vi sender vores pakke til: {{customer.address}}
+    <br>
+    Din email: {{customer.login.email}}
+    <br>
+  </div>
+</ul>
+
+<ul>
+  <li *ngFor="let order of orders">
+    vi har sent pakken til: {{order.customer.address}}
+    <br>
+    dine vare inkludere: 
+    <ul>
+      <li>
+
+      </li>
+    </ul>
+  </li>
+</ul>

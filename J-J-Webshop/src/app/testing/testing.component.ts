@@ -3,10 +3,11 @@ import { GenreService } from '../Services/genre.service';
 import { ClassGenre, Genre } from '../Models/Genre';
 import { ClassProduct, Product } from '../Models/Product';
 import { ProductsService } from '../Services/products.service';
-import { Customer } from '../Models/Customers'
-import { CustomersService } from '../Services/customers.service'
-
-import { LoginService } from "../Services/login.service";
+import { Customer } from '../Models/Customers';
+import { CustomersService } from '../Services/customers.service';
+import { LoginService } from '../Services/login.service';
+import { OrdersService } from '../Services/orders.service';
+import { ModelOrder, Order } from '../Models/Orders';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -44,11 +45,16 @@ export class TestingComponent implements OnInit {
   loginEdit: boolean;
   loginModel= new ClassLogin();
 
+  order: Order;
+  orders: Order[];
+  modelOrder: ModelOrder;
+
   constructor(
     private GenreService: GenreService,
     private ProductService: ProductsService,
     private CustomersService: CustomersService,
     private LoginService: LoginService,
+    private OrderService: OrdersService,
     private route: ActivatedRoute,
     private location: Location
 
@@ -180,6 +186,7 @@ export class TestingComponent implements OnInit {
 
   //#endregion
 
+  //#region CRUD Login
   loginEditChangeTrue() {
     this.loginEdit = true
   }
@@ -229,7 +236,7 @@ export class TestingComponent implements OnInit {
     }
     this.GetLogin(login.id);
   }
-
+  //#endregion
 
   //#region CRUD Customers
   customerEditChangeTrue(){
@@ -298,6 +305,23 @@ export class TestingComponent implements OnInit {
     this.CustomersService.DeleteCustomer(customer).subscribe();
     this.LoginService.DeleteLogin(this.selectedLogin).subscribe();
   }
+  }
+
+  //#endregion
+
+  //#region CRUD Orders
+
+  GetOrders(id: number): void{
+    this.OrderService.GetOrders(id)
+      .subscribe(orders => this.orders = orders)
+  }
+
+  AddOrder(order: Order): void{
+    order.statusId = 1;
+    order.customerId = 46;
+    this.OrderService.AddOrders(order)
+      .subscribe(order => {
+        this.orders.push(order)});
   }
 
   //#endregion
