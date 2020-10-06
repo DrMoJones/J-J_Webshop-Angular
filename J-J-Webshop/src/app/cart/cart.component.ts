@@ -8,6 +8,8 @@ import { CartService } from "../Services/cart.service";
 })
 export class CartComponent implements OnInit {
 
+  cart = window.localStorage;
+
   constructor() { }
 
   ngOnInit(): void {

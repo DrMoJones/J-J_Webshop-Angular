@@ -1,0 +1,40 @@
+[
+  {
+    "id": 2,
+    "name": "Assassins creed 2",
+    "price": 399,
+    "description": "Da bes game",
+    "genreId": 1,
+    "stock": 79,
+    "genre": {
+      "id": 1,
+      "genreName": "RPG"
+    }
+  },
+
+  {
+    "id": 2,
+    "name": "Assassins creed 2",
+    "price": 399,
+    "description": "Da bes game",
+    "genreId": 1,
+    "stock": 79,
+    "genre": {
+      "id": 1,
+      "genreName": "RPG"
+    }
+  },
+
+  {
+    "id": 2,
+    "name": "Assassins creed 2",
+    "price": 399,
+    "description": "Da bes game",
+    "genreId": 1,
+    "stock": 79,
+    "genre": {
+      "id": 1,
+      "genreName": "RPG"
+    }
+  }
+]

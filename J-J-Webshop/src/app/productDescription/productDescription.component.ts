@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-
 
 import { ProductsService } from '../Services/products.service';
 import { Product } from "../Models/Product";
+import { CartService } from "../Services/cart.service";
 
 @Component({
   selector: 'app-productDescription',
@@ -17,10 +16,10 @@ export class ProductDescriptionComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
+    private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
-    
+
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
@@ -28,7 +27,7 @@ export class ProductDescriptionComponent implements OnInit {
   ngOnInit()
   {
     this.GetProduct();
-    
+
   }
 
   GetProduct()
@@ -37,5 +36,10 @@ export class ProductDescriptionComponent implements OnInit {
     this.productsService.GetProduct(id)
     .subscribe(product => this.product = product)
 
+  }
+
+  onClick()
+  {
+    this.cartService.AddToCart(this.product)
   }
 }

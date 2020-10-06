@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Product } from '../Models/Product'
+import { stringify } from 'querystring';
 
 
 @Injectable({
@@ -20,13 +21,35 @@ export class CartService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  AddToCart(){
-    window.localStorage.setItem("cart", value);
-    localStorage["cart"];
+  AddToCart(product: Product)
+  {
+    var existing = this.GetCart();
+
+    existing.push(product);
+
+    this.SaveCart(existing);
+
+    console.log(window.localStorage)
   }
 
-  GetProduct(id: number): Observable<Product>{
-    const url = `${this.productUrl}/${id}`
-    return this.http.get<Product>(url)
+  GetCart(){
+    var existing: any = window.localStorage.getItem('cart');
+
+    if (existing == null)
+    {
+      existing = [];
+    }
+
+    else
+    {
+      existing = JSON.parse(existing)
+    }
+
+    return existing;
+  }
+
+  SaveCart( existing : any[] )
+  {
+    window.localStorage.setItem('cart', JSON.stringify(existing));
   }
 }
