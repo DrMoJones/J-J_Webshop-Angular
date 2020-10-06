@@ -2,27 +2,49 @@
   todo: description, update button + form, order history
 </p>
 
-<ul>
-  <div *ngIf="customer">
-    Dit navn {{customer.name}}
-    <br>
-    Dit tlf nummer: {{customer.telephoneNumber}}
-    <br>
-    Addressen vi sender vores pakke til: {{customer.address}}
-    <br>
-    Din email: {{customer.login.email}}
-    <br>
+<div *ngIf="customer">
+  <button (click)="AddOrder(customer.id)">AddOrder</button>
+</div>
+
+<br>
+
+<div>
+  add to order
+  <div>
+    <label for="Orderlines">Orderlines: </label>
+    <select id="Orderlines" required [(ngModel)]="product.id" name="genre" #product="ngModel">
+      <option *ngFor="let product of products" [ngValue]="product.id">
+        {{product.name}}
+      </option>
+    </select>
   </div>
-</ul>
+  <button (click)="AddOrderLines(product)">Add to orderline</button>
+</div>
+<br>
+
+<div *ngIf="customer">
+  {{customer.id}}
+  Dit navn {{customer.name}}
+  <br>
+  Dit tlf nummer: {{customer.telephoneNumber}}
+  <br>
+  Addressen vi sender vores pakke til: {{customer.address}}
+  <br>
+  Din email: {{customer.login.email}}
+  <br>
+</div>
+
 
 <ul>
   <li *ngFor="let order of orders">
-    vi har sent pakken til: {{order.customer.address}}
+    Dine tidligere forsendelser er sendt til: {{order.customer.address}}
     <br>
-    dine vare inkludere: 
+    dine vare inkludere:
     <ul>
-      <li>
-
+      <li *ngFor="let orderLine of orderLines">
+        {{orderLine.orderId}}
+        <br>
+        {{orderLine.price}}
       </li>
     </ul>
   </li>

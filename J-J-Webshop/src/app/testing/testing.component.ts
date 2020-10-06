@@ -43,7 +43,7 @@ export class TestingComponent implements OnInit {
   logins: Login[];
   selectedLogin: Login;
   loginEdit: boolean;
-  loginModel= new ClassLogin();
+  loginModel = new ClassLogin();
 
   order: Order;
   orders: Order[];

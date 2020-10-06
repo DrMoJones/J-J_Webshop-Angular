@@ -21,7 +21,7 @@ export class GenreService {
 
   GetGenres(): Observable<Genre[]>{
     return this.http.get<Genre[]>(this.GenreUrl)
-      .pipe(tap(_ => console.log('fetched heroes')))
+      .pipe(tap(_ => console.log('fetched Genre')))
   }
 
   GetGenre(id: number): Observable<Genre>{
