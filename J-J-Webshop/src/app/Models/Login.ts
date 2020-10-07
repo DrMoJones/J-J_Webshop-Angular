@@ -11,7 +11,6 @@ export interface Login
 
 export class ClassLogin
 {
-
   public id: number;
   public email: string;
   public password: string;

@@ -45,8 +45,8 @@ export class UserComponent implements OnInit {
 
   //vores dummy kunde er 49
   ngOnInit(): void {
-    this.GetCustomer(49);
-    this.GetOrders(49);
+    this.GetCustomer(9);
+    this.GetOrders(9);
     this.GetProducts();
   }
 
@@ -72,8 +72,6 @@ export class UserComponent implements OnInit {
   GetOrderLines(id: number) {
     this.OrderlineService.GetOrderLineByOrderId(id)
       .subscribe(orderlines => this.orderLines = orderlines)
-
-    this.modelOrderLine = this.orderLines[0];
   }
 
 
@@ -82,17 +80,29 @@ export class UserComponent implements OnInit {
       .subscribe(products => this.products = products)
   }
 
+  // Skal tage imod 4 værdier
   AddOrderLines(product: Product) {
     var productId = product.id;
     var orderId = 13;
-    var amount = 40;
-    var price = 399
+    var amount = 2;
+    var price = product.price;
     this.OrderlineService.AddOrderLine({ orderId, amount, price, productId }  as OrderLine)
       .subscribe(orderline => {
         this.orderLines.push(orderline)
       })
   }
 
+  // Skal tage imod 4 værdier
+  AddOrderLinesTest(productId: number, orderId: number, amount: number, price) {
+    var productId = productId;
+    var orderId = orderId;
+    var amount = amount;
+    var price = price;
+    this.OrderlineService.AddOrderLine({ orderId, amount, price, productId }  as OrderLine)
+      .subscribe(orderline => {
+        this.orderLines.push(orderline)
+      })
+  }
 
   //TODO skulle nok et snapshot til at få Id'en til at vide hvilken kunde det er.
 }

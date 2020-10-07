@@ -3,6 +3,7 @@
 </p>
 
 <div *ngIf="customer">
+  {{customer.id}}
   <button (click)="AddOrder(customer.id)">AddOrder</button>
 </div>
 
@@ -41,7 +42,7 @@
     <br>
     dine vare inkludere:
     <ul>
-      <li *ngFor="let orderLine of orderLines">
+      <li *ngFor="let orderLine of order.orderLines">
         {{orderLine.orderId}}
         <br>
         {{orderLine.price}}
