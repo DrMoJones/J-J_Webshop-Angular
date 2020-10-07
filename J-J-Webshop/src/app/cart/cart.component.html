@@ -15,18 +15,18 @@
         <div class="grid-item">
           <p>{{ item.name }}</p>
           <p>Price: {{ item.price }}</p>
-          <br />
+          <br/>
         </div>
 
         <div class="grid-item">
-          <button>-</button>
-          <input #amountBox id="search-box" (input)="amount(amountBox.value)" placeholder="" />
-          <button>+</button>
+          <button (click)="Decrease(item)">-</button>
+          <input type="number" id="search-box" (keypress)="OnChangeEvent(item)" (change)="OnChangeEvent(item)"  [(ngModel)]="item.amount"/>
+          <button (click)="Increase(item)">+</button>
         </div>
       </div>
     </div>
 
-    <br />
+    <br/>
     <button id="Purchase" (click)="onClick()">Finalize purchase</button>
   </div>
 </div>

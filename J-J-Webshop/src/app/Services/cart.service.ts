@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Product } from '../Models/Product'
+import { Product } from '../Models/Product';
+import { CartItem } from "../Models/CartItem";
 import { stringify } from 'querystring';
 
 
@@ -23,9 +24,11 @@ export class CartService {
 
   AddToCart(product: Product)
   {
+    let cartItem = new CartItem(product.id, product.name, product.price, 1);
+
     var existing = this.GetCart();
 
-    existing.push(product);
+    existing.push(cartItem);
 
     this.SaveCart(existing);
 
