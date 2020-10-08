@@ -27,7 +27,6 @@ export class CartComponent implements OnInit {
   {
     this.orderLinesService.AddOrderLine(this.cart)
       .subscribe();
-    //this.cart = null;
     window.localStorage.clear();
     this.ngOnInit();
   }
