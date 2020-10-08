@@ -9,20 +9,6 @@
 
 <br>
 
-<div>
-  add to order
-  <div>
-    <label for="Orderlines">Orderlines: </label>
-    <select id="Orderlines" required [(ngModel)]="product.id" name="genre" #product="ngModel">
-      <option *ngFor="let product of products" [ngValue]="product.id">
-        {{product.name}}
-      </option>
-    </select>
-  </div>
-  <button (click)="AddOrderLines(product)">Add to orderline</button>
-</div>
-<br>
-
 <div *ngIf="customer">
   {{customer.id}}
   Dit navn {{customer.name}}

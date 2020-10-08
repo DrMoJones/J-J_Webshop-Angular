@@ -81,6 +81,7 @@ export class UserComponent implements OnInit {
   }
 
   // Skal tage imod 4 værdier
+  /*
   AddOrderLines(product: Product) {
     var productId = product.id;
     var orderId = 13;
@@ -103,6 +104,8 @@ export class UserComponent implements OnInit {
         this.orderLines.push(orderline)
       })
   }
+  */
 
+  
   //TODO skulle nok et snapshot til at få Id'en til at vide hvilken kunde det er.
 }

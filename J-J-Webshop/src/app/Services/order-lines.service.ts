@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { OrderLine } from '../Models/OrderLines';
 import { Product } from '../Models/Product';
+import { CartItem } from '../Models/CartItem';
 
 
 
@@ -28,8 +29,8 @@ export class OrderLinesService {
     .pipe(tap(_=> console.log(`fetched orderlines`)))
   }
 
-  AddOrderLine(orderLine: OrderLine){
-    return this.http.post<OrderLine>(this.orderLinesUrl, orderLine, this.httpOptions)
-    .pipe(tap(_=> console.log(`posted orders with id ${orderLine}`)))
+  AddOrderLine(cart: CartItem[]){
+    return this.http.post<OrderLine>(this.orderLinesUrl, cart, this.httpOptions)
+    .pipe(tap(_=> console.log(`posted orders with id ${cart}`)))
   }
 }
