@@ -26,12 +26,18 @@
   <li *ngFor="let order of orders">
     Dine tidligere forsendelser er sendt til: {{order.customer.address}}
     <br>
+
+    ordre id: {{order.id}}
+    <br>
     dine vare inkludere:
     <ul>
       <li *ngFor="let orderLine of order.orderLines">
-        {{orderLine.orderId}}
+        {{orderLine.product.name}}
         <br>
-        {{orderLine.price}}
+        prisen pr. stk: {{orderLine.product.price}}
+        <br>
+        total: {{orderLine.price}}
+
       </li>
     </ul>
   </li>

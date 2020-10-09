@@ -20,7 +20,7 @@
 
         <div class="grid-item">
           <button (click)="Decrease(item)">-</button>
-          <input type="number" id="search-box" (keypress)="OnChangeEvent(item)" (change)="OnChangeEvent(item)"  [(ngModel)]="item.amount"/>
+          <input type="number" id="search-box" (keyup)="OnChangeEvent(item)" (change)="OnChangeEvent(item)"  [(ngModel)]="item.amount"/>
           <button (click)="Increase(item)">+</button>
         </div>
       </div>

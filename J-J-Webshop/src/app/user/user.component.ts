@@ -45,8 +45,8 @@ export class UserComponent implements OnInit {
 
   //vores dummy kunde er 49
   ngOnInit(): void {
-    this.GetCustomer(9);
-    this.GetOrders(9);
+    this.GetCustomer(1);
+    this.GetOrders(1);
     this.GetProducts();
   }
 
@@ -106,6 +106,6 @@ export class UserComponent implements OnInit {
   }
   */
 
-  
+
   //TODO skulle nok et snapshot til at få Id'en til at vide hvilken kunde det er.
 }
